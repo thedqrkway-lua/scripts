@@ -4,20 +4,20 @@ script_version('1.3.0')
 script_version_number(13)
 
 require "lib.moonloader"
+local dlstatus = require('moonloader').download_status
 local sampev = require 'lib.samp.events'
 local inicfg = require 'inicfg'
 local inicfg = require 'inicfg'
 local keys = require "vkeys"
 local imgui = require 'imgui'
-local dlstatus = require('moonloader').download_status
 local encoding = require 'encoding'
 encoding.default = 'CP1251'
 u8 = encoding.UTF8
 
 update_state = false
 
-local script_vers = 2
-local script_vers_text = "2.00"
+local script_vers = 4
+local script_vers_text = "4.00"
 
 local update_url = "https://raw.githubusercontent.com/thedqrkway-lua/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
@@ -99,8 +99,8 @@ function main()
 		downloadUrlToFile(update_url, update_path, function(id, status)
 				if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 						updateIni = inicfg.load(nil, update_path)
-						if tonumber(updateIni.info.vers_text) > script_vers_text then
-								sampAddChatMessage(tag .."{FFFFFF}Есть обновление! Версия: " .. updateIni.info.vers_text, -1)
+						if tonumber(updateIni.info.vers) > script_vers then
+								sampAddChatMessage(tag .."{FFFFFF}Есть обновление! Загружена версия: " .. updateIni.info.vers_text, -1)
 								update_state = true
 						end
 						os.remove(update_path)
@@ -113,7 +113,7 @@ function main()
 				if update_state then
 						downloadUrlToFile(script_url, script_path, function(id, status)
 								if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-										sampAddChatMessage("Скрипт успешно обновлен!", -1)
+										sampAddChatMessage(tag .. "{FFFFFF}Скрипт успешно обновлен!", -1)
 										thisScript():reload()
 								end
 						end)
@@ -173,7 +173,7 @@ function imgui.OnDrawFrame()
 		if imgui.Button(u8'Очистить инвайты за все время.') then
 			mainIni.config.all = 0
 			inicfg.save(mainIni, 'invite.ini')
-			sampAddChatMessage(tag .. "Инвайты за все время успешно сброшены.")
+			sampAddChatMessage(tag .. "Инвайты за все время успешно сброшены. керч хуй")
 			main_window_state.v = false
 		end
 
@@ -182,7 +182,7 @@ function imgui.OnDrawFrame()
 				imgui.Spacing()
 				imgui.Spacing()
 
-				 if imgui.Button(u8'Очистить инвайты за день и все время. керч лох') then
+				 if imgui.Button(u8'Очистить инвайты за день и все время.') then
 					 mainIni.config.invite = 0
 					 mainIni.config.all = 0
 					 inicfg.save(mainIni, 'invite.ini')
