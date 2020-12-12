@@ -99,7 +99,7 @@ function main()
 		downloadUrlToFile(update_url, update_path, function(id, status)
 				if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 						updateIni = inicfg.load(nil, update_path)
-						if tonumber(updateIni.info.vers) > script_vers then
+						if tonumber(updateIni.info.vers_text) > script_vers_text then
 								sampAddChatMessage(tag .."{FFFFFF}Есть обновление! Версия: " .. updateIni.info.vers_text, -1)
 								update_state = true
 						end
