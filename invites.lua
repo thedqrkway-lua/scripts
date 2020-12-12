@@ -22,7 +22,7 @@ local script_vers_text = "2.00"
 local update_url = "https://raw.githubusercontent.com/thedqrkway-lua/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
 
-local script_url = "https://github.com/thedqrkway-lua/scripts/blob/main/imguitest.luac?raw=true"
+local script_url = "https://github.com/thedqrkway-lua/scripts/blob/main/invites.lua?raw=true"
 local script_path = thisScript().path
 
 local main_window_state = imgui.ImBool(false)
@@ -105,6 +105,7 @@ function main()
 						end
 						os.remove(update_path)
 				end
+			end)
 
     while true do
         wait(0)
@@ -181,7 +182,7 @@ function imgui.OnDrawFrame()
 				imgui.Spacing()
 				imgui.Spacing()
 
-				 if imgui.Button(u8'Очистить инвайты за день и все время.') then
+				 if imgui.Button(u8'Очистить инвайты за день и все время. керч лох') then
 					 mainIni.config.invite = 0
 					 mainIni.config.all = 0
 					 inicfg.save(mainIni, 'invite.ini')
